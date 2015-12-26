@@ -3,7 +3,7 @@
     color 2F
     echo -------------------------------------------------
     echo ---- Script para limpiar el directorio DBSRV ----
-    echo ----         Amir Torres   -  Torzap         ----
+    echo ----         Amir Torrez   -  Torzap         ----
     echo -------------------------------------------------
     @echo.
     echo Estas completamente seguro? [si/no]

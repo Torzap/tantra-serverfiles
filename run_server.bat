@@ -6,7 +6,7 @@ echo ----        Encender servidor Tantra         ----
 echo ----         Amir Torrez   -  Torzap         ----
 echo -------------------------------------------------
 @rem Tiempo en segundos entre cada ejecucion:
-set optm=10
+set optm=5
 @rem Tiempo en segundos para cerrar al finalizar:
 set cstm=5
 
@@ -17,19 +17,19 @@ subst G: C:\DBSRV\guild
 subst R: C:\current_user
 SUBST K: C:\SQLDAEMON\Rank
 @echo.
-timeout>nul /t 5
+timeout>nul /t %optm%
 @echo.
 echo Encendiendo motores...
 start DBSRV\DBSRV.exe
-timeout>nul /t 5
+timeout>nul /t %optm%
 start MSGSRV\MSGSRV.exe
-timeout>nul /t 5
+timeout>nul /t %optm%
 start Itemserver\Itmsrv.exe
 @echo.
 echo Encendiendo todas las zonas...
-for /L %%i in (1,1,50) do ( timeout>nul /t 5 && if exist Zone%%i\Zone%%i.exe start Zone%%i\Zone%%i.exe )
-timeout>nul /t 5
+for /L %%i in (1,1,50) do ( timeout>nul /t %optm% && if exist Zone%%i\Zone%%i.exe start Zone%%i\Zone%%i.exe )
+timeout>nul /t %optm%
 start SQLDAEMON\SQLDAEMON.exe
 @echo.
 echo Servidor listo, esta ventana se cerrara en %cstm% segundos
-timeout>nul /t 5
+timeout>nul /t %optm%

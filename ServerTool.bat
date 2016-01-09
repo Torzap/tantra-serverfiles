@@ -12,7 +12,7 @@ echo    ==                                ==                                    
 echo    ==     E = Encender servidor      ==   L = Limpiar logs                 ==
 echo    ==     X = Apagar servidor        ==   A = Limpiar cuentas y chars      ==
 echo    ==     Z = Ver los mapas          ==   I = Configurar IP                ==
-echo    ==     G = Habilitar clanes       ==   R = Copiar recursos              ==
+echo    ==     G = Clanes                 ==   R = Copiar recursos              ==
 echo    ==                                ==                                    ==
 echo    ==========================================================================
 echo    ==                                                                      ==

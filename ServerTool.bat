@@ -1,7 +1,6 @@
 @echo off
 color 1F
 set v=1.0
-set zrun=1
 :menu
 cls
 title Menu - Tantra Server Tool v%v%

@@ -5,6 +5,7 @@ set zrun=1
 :menu
 cls
 title Menu - Tantra Server Tool v%v%
+if not exist Resources md Resources
 @echo.
 @echo.
 echo    ==========================================================================

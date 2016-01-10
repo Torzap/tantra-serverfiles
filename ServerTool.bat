@@ -1,6 +1,6 @@
 @echo off
 color 1F
-set v=1.2
+set v=1.3
 :menu
 cls
 title Menu - Tantra Server Tool v%v%
@@ -14,6 +14,7 @@ echo    ==     X = Apagar servidor        ==   A = Limpiar cuentas y chars      
 echo    ==     Z = Ver los mapas          ==   I = Configurar IP                ==
 echo    ==     G = Clanes                 ==   R = Copiar recursos              ==
 echo    ==     J = Ver oficios            ==   C = Algunos comandos gm          ==
+echo    ==     S = Crear settings         ==                                    ==
 echo    ==                                ==                                    ==
 echo    ==========================================================================
 echo    ==                                                                      ==
@@ -31,6 +32,7 @@ if /I "%acc%"=="c" if /I "%acc%"=="C" goto comandosgm
 if /I "%acc%"=="l" if /I "%acc%"=="L" goto borrarlogs
 if /I "%acc%"=="i" if /I "%acc%"=="I" goto configurarip
 if /I "%acc%"=="a" if /I "%acc%"=="A" goto borrarcuentas
+if /I "%acc%"=="s" if /I "%acc%"=="S" goto crearsettings
 if /I "%acc%"=="r" if /I "%acc%"=="R" goto copiarrecursos
 if /I "%acc%"=="x" if /I "%acc%"=="X" goto apagarservidor
 if /I "%acc%"=="e" if /I "%acc%"=="E" goto encenderservidor
@@ -359,7 +361,7 @@ title  Apagar servidor - Tantra Server Tool v%v%
 @echo.
 echo    ==========================================================================
 echo    ==                                ==                                    ==
-echo    ==      X = Apagar servidor       ==         N = Volver al menu         ==
+echo    ==      X = Apagar servidor       ==         M = Volver al menu         ==
 echo    ==                                ==                                    ==
 echo    ==========================================================================
 echo    ==                                                                      ==
@@ -381,13 +383,14 @@ taskkill /f /t /im GMTool.exe
 taskkill /f /t /im MSGSRV.exe
 taskkill /f /t /im CHATSRV.exe
 taskkill /f /t /im ITMSRV.exe
-for /L %%i in (1,1,35) do ( taskkill /f /t /im Zone%%i.exe )
+taskkill /f /t /im SQLDAEMON.exe
+for /L %%i in (1,1,35) do ( if exist Zone%%i taskkill /f /t /im Zone%%i.exe )
 @echo.
 echo Tarea terminada, presiona una tecla para volver al menu
 pause>nul
 goto menu
 )
-if /I "%acc%"=="n" if /I "%acc%"=="N" goto menu
+if /I "%acc%"=="m" if /I "%acc%"=="M" goto menu
 goto error
 :copiarrecursos
 cls
@@ -406,7 +409,8 @@ echo    ==                                ==                                    
 echo    ==   H = HTSSetting.txl           ==    P = TantraParam.tpa             ==
 echo    ==   Q = Quiz.txt                 ==    Z = Zonesrv.exe                 ==
 echo    ==   S = HTScrollQuestSystem.txl  ==    N = NameFilter.txt              ==
-echo    ==   C = ChatFilter.txt           ==                                    ==
+echo    ==   C = ChatFilter.txt           ==    W = WorldSettings           ==
+echo    ==   I = Itemserver.txt           ==                                    ==
 echo    ==                                ==                                    ==
 echo    ==========================================================================
 echo    ==                                                                      ==
@@ -443,6 +447,14 @@ goto cfrecursos
 )
 if /I "%acc%"=="q" if /I "%acc%"=="Q" (
 for /L %%i in (1,1,50) do ( if exist Zone%%i copy Resources\Quiz.txt  Zone%%i\Data\Quiz.txt  /Y )
+goto cfrecursos
+)
+if /I "%acc%"=="w" if /I "%acc%"=="W" (
+for /L %%i in (1,1,50) do ( if exist Zone%%i copy Resources\WorldSettings  Zone%%i\Data\WorldSettings  /Y )
+goto cfrecursos
+)
+if /I "%acc%"=="i" if /I "%acc%"=="I" (
+for /L %%i in (1,1,50) do ( if exist Zone%%i copy Resources\itemserver.txt  Zone%%i\Data\itemserver.txt  /Y )
 goto cfrecursos
 )
 goto error
@@ -548,7 +560,12 @@ echo %ip% 5052 >>SQLDAEMON/LocalIP.txt
 echo %ip% 5053 >>CHATSRV/LocalIP.txt
 echo %ip% 1000 >>DBSRV/LocalIP.txt
 echo %ip% 5001 >>MSGSRV/LocalIP.txt
-echo 0 %ip%  >>DBSRV/Admin.txt
+echo 0 %ip%  >>Resources/itemserver.txt
+for /L %%i in (1,1,50) do ( if exist Zone%%i copy Resources\itemserver.txt  Zone%%i\itemserver.txt  /Y )
+echo %ip% 7514  >>DBSRV/Admin.txt
+echo $DBServer >>GMTOOL/Serverlist.txt
+echo %ip%, Tantra Online >>GMTOOL/Serverlist.txt
+echo $TSMonSvc  >>GMTOOL/Serverlist.txt
 set n=0
 set puerto=3000
 :begin
@@ -588,3 +605,100 @@ echo    ========================================================================
 echo Presiona una tecla para volver al menu
 pause>nul
 goto menu
+:crearsettings
+cls
+title  Creacion de settings - Tantra Server Tool v%v%
+@echo.
+@echo.
+echo    ==========================================================================
+echo    ==                                                                      ==
+echo    ==                     Creacion de archivo settings                     ==
+echo    ==                                                                      ==
+echo    ==========================================================================
+echo    ==                                ==                                    ==
+echo    ==        N = Crear nuevo         ==         M = Volver al menu         ==
+echo    ==                                ==                                    ==
+echo    ==========================================================================
+@echo.
+@echo.
+echo Introduce una accion
+set /p acc=  ?: 
+if /I "%acc%"=="m" if /I "%acc%"=="M" goto menu
+if /I "%acc%"=="n" if /I "%acc%"=="N" (
+@echo.
+set /p map=  ¨Para que zona?: 
+goto nuevosettings
+@echo.
+pause>nul
+)
+goto error
+:nuevosettings
+if exist "%~d0%~p0Zone%map%\Data\Settings.ini" del /f /q "%~d0%~p0Zone%map%\Data\Settings.ini"
+
+echo Tipo, 0 = Normal, 1 = PvP, 2 = Guerra
+set /p stype=  ?: 
+echo Pais (Mexico, Philippines, etc)
+set /p stype=  ?: 
+echo Rate de experiencia
+set /p srexp=  ?: 
+echo Rate de oro
+set /p srgold=  ?: 
+echo Rate de items
+set /p sritem=  ?: 
+echo Rate de puntos dios
+set /p srmp=  ?: 
+echo Minimo nivel requerido
+set /p sminlvl=  ?: 
+echo Version del cliente
+set /p scversion=  ?: 
+
+echo [Zone] >>Zone%map%/Data/Settings.ini
+echo ID = %map% >>Zone%map%/Data/Settings.ini
+echo Type = 0 >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [World] >>Zone%map%/Data/Settings.ini
+echo ID  = 1 >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [Country] >>Zone%map%/Data/Settings.ini
+echo Name = %stype% >>Zone%map%/Data/Settings.ini
+echo PK = 1 >>Zone%map%/Data/Settings.ini
+echo MonsterSpeech = 1 >>Zone%map%/Data/Settings.ini
+echo AttackSpeedHack = 1000 >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [Correct] >>Zone%map%/Data/Settings.ini
+echo RwdPrana = %srexp% >>Zone%map%/Data/Settings.ini
+echo RwdItem = %sritem% >>Zone%map%/Data/Settings.ini
+echo RwdGold = %srgold% >>Zone%map%/Data/Settings.ini
+echo RwdBraman = %srmp% >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [VisualRange] >>Zone%map%/Data/Settings.ini
+echo HalfGrid = 48 >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [Log] >>Zone%map%/Data/Settings.ini
+echo MonsterLevel = 30 >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [ItemCash] >>Zone%map%/Data/Settings.ini
+echo CashType = 2 >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [Height] >>Zone%map%/Data/Settings.ini
+echo Obstacle = 50 >>Zone%map%/Data/Settings.ini
+echo Character = 400 >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [Limit] >>Zone%map%/Data/Settings.ini
+echo MinLevel = %sminlvl% >>Zone%map%/Data/Settings.ini
+echo MaxLevel = 200 >>Zone%map%/Data/Settings.ini
+echo MaxUser = 1000 >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [Castle] >>Zone%map%/Data/Settings.ini
+echo Owner = 0 >>Zone%map%/Data/Settings.ini
+echo SalesRate = 0 >>Zone%map%/Data/Settings.ini
+echo SalesMoney = 0 >>Zone%map%/Data/Settings.ini
+@echo.  >>Zone%map%/Data/Settings.ini
+echo [Version] >>Zone%map%/Data/Settings.ini
+echo Ver = %scversion% >>Zone%map%/Data/Settings.ini
+
+@echo.
+@echo.
+echo Tarea terminada, presiona una tecla para continuar
+pause>nul
+goto crearsettings

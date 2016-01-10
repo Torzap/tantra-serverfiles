@@ -1,6 +1,6 @@
 @echo off
 color 1F
-set v=1.1
+set v=1.2
 :menu
 cls
 title Menu - Tantra Server Tool v%v%
@@ -13,7 +13,7 @@ echo    ==     E = Encender servidor      ==   L = Limpiar logs                 
 echo    ==     X = Apagar servidor        ==   A = Limpiar cuentas y chars      ==
 echo    ==     Z = Ver los mapas          ==   I = Configurar IP                ==
 echo    ==     G = Clanes                 ==   R = Copiar recursos              ==
-echo    ==     J = Ver oficios            ==                                    ==
+echo    ==     J = Ver oficios            ==   C = Algunos comandos gm          ==
 echo    ==                                ==                                    ==
 echo    ==========================================================================
 echo    ==                                                                      ==
@@ -26,7 +26,8 @@ echo Introduce una accion
 set /p acc=  ?: 
 if /I "%acc%"=="z" if /I "%acc%"=="Z" goto mapas
 if /I "%acc%"=="g" if /I "%acc%"=="G" goto clanes
-if /I "%acc%"=="J" if /I "%acc%"=="J" goto oficios
+if /I "%acc%"=="j" if /I "%acc%"=="J" goto oficios
+if /I "%acc%"=="c" if /I "%acc%"=="C" goto comandosgm
 if /I "%acc%"=="l" if /I "%acc%"=="L" goto borrarlogs
 if /I "%acc%"=="i" if /I "%acc%"=="I" goto configurarip
 if /I "%acc%"=="a" if /I "%acc%"=="A" goto borrarcuentas
@@ -563,3 +564,24 @@ pause
 echo Tarea terminada, presiona una tecla para continuar
 pause>nul
 goto configurarip
+:comandosgm
+cls
+title  Listado de algunos comandos gm - Tantra Server Tool v%v%
+@echo.
+@echo.
+echo    ==========================================================================
+echo    ==                                                                      ==
+echo    ==   /ChangeRwdCorrect exp oro mp       ==   Alterar rates              ==
+echo    ==   /PrintRwdCorrect                   ==   Ver los rates              ==
+echo    ==   /kick pj                           ==   Botar un pj del juego      ==
+echo    ==   /summon id cantidad                ==   Invocar mobs               ==
+echo    ==   /KillMonsterAll                    ==   Matar todos los mob        ==
+echo    ==   /mvzone id                         ==   Usar un portal             ==
+echo    ==   /DropItm id                        ==   "Invocar" un item          ==
+echo    ==                                                                      ==
+echo    ==========================================================================
+@echo.
+@echo.
+echo Presiona una tecla para volver al menu
+pause>nul
+goto menu

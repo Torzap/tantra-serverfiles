@@ -1,6 +1,6 @@
 @echo off
 color 1F
-set v=1.0
+set v=1.1
 :menu
 cls
 title Menu - Tantra Server Tool v%v%
@@ -13,6 +13,7 @@ echo    ==     E = Encender servidor      ==   L = Limpiar logs                 
 echo    ==     X = Apagar servidor        ==   A = Limpiar cuentas y chars      ==
 echo    ==     Z = Ver los mapas          ==   I = Configurar IP                ==
 echo    ==     G = Clanes                 ==   R = Copiar recursos              ==
+echo    ==     J = Ver oficios            ==                                    ==
 echo    ==                                ==                                    ==
 echo    ==========================================================================
 echo    ==                                                                      ==
@@ -21,9 +22,11 @@ echo    ==                        Creado por Amir Torrez                        
 echo    ==                                                                      ==
 echo    ==========================================================================
 @echo.
+echo Introduce una accion
 set /p acc=  ?: 
 if /I "%acc%"=="z" if /I "%acc%"=="Z" goto mapas
 if /I "%acc%"=="g" if /I "%acc%"=="G" goto clanes
+if /I "%acc%"=="J" if /I "%acc%"=="J" goto oficios
 if /I "%acc%"=="l" if /I "%acc%"=="L" goto borrarlogs
 if /I "%acc%"=="i" if /I "%acc%"=="I" goto configurarip
 if /I "%acc%"=="a" if /I "%acc%"=="A" goto borrarcuentas
@@ -79,7 +82,28 @@ echo    ========================================================================
 echo Presiona una tecla para volver al menu
 pause>nul
 goto menu
-
+:oficios
+cls
+title  Listado de oficios - Tantra Server Tool v%v%
+@echo.
+@echo.
+echo    ==========================================================================
+echo    ==                                                                      ==
+echo    ==                        Listado de 2do oficios                        ==
+echo    ==                                                                      ==
+echo    ==========================================================================
+echo    ==                                ==                                    ==
+echo    ==    2 / 0 = Satya               ==    2 / 1 = Banar                   ==
+echo    ==    2 / 2 = Druka               ==    2 / 3 = Karya                   ==
+echo    ==    2 / 4 = Nakayuda            ==    2 / 5 = Vidya                   ==
+echo    ==    2 / 6 = Abikara             ==    2 / 7 = Samabat                 ==
+echo    ==                                ==                                    ==
+echo    ==========================================================================
+@echo.
+@echo.
+echo Presiona una tecla para volver al menu
+pause>nul
+goto menu
 :borrarlogs
 cls
 title  Limpiar logs - Tantra Server Tool v%v%
@@ -96,6 +120,7 @@ echo    ==                                                                      
 echo    ==========================================================================
 @echo.
 @echo.
+echo Introduce una accion
 set /p acc=  ?: 
 if /I "%acc%"=="y" if /I "%acc%"=="Y" goto yborrarlogs
 if /I "%acc%"=="n" if /I "%acc%"=="N" goto menu
@@ -138,6 +163,7 @@ echo    ==                                                                      
 echo    ==========================================================================
 @echo.
 @echo.
+echo Introduce una accion
 set /p acc=  ?: 
 if /I "%acc%"=="y" if /I "%acc%"=="Y" goto yborrarcuentas
 if /I "%acc%"=="n" if /I "%acc%"=="N" goto menu
@@ -179,6 +205,7 @@ echo    ==                                                                      
 echo    ==========================================================================
 @echo.
 @echo.
+echo Introduce una accion
 set /p acc=  ?: 
 if /I "%acc%"=="r" if /I "%acc%"=="R" goto rclanes
 if /I "%acc%"=="x" if /I "%acc%"=="X" goto xclanes
@@ -240,6 +267,7 @@ echo    ==                                ==                                    
 echo    ==========================================================================
 @echo.
 @echo.
+echo Introduce una accion
 set /p acc=  ?: 
 if /I "%acc%"=="t" if /I "%acc%"=="T" goto rtodo
 if /I "%acc%"=="n" if /I "%acc%"=="N" goto rmapa
@@ -339,6 +367,7 @@ echo    ==                                                                      
 echo    ==========================================================================
 @echo.
 @echo.
+echo Introduce una accion
 set /p acc=  ?: 
 if /I "%acc%"=="x" if /I "%acc%"=="X" (
 subst Q: /D
@@ -384,6 +413,7 @@ echo    ==                          M = Volver al menu                          
 echo    ==                                                                      ==
 echo    ==========================================================================
 @echo.
+echo Introduce una accion
 set /p acc=  ?: 
 if /I "%acc%"=="m" if /I "%acc%"=="M" goto menu
 if /I "%acc%"=="p" if /I "%acc%"=="P" (
@@ -435,6 +465,7 @@ echo    ==                          M = Volver al menu                          
 echo    ==                                                                      ==
 echo    ==========================================================================
 @echo.
+echo Introduce una accion
 set /p acc=  ?: 
 if /I "%acc%"=="m" if /I "%acc%"=="M" goto menu
 if /I "%acc%"=="a" if /I "%acc%"=="A" goto nuevaip

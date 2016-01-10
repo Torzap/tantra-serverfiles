@@ -576,8 +576,11 @@ echo    ==   /PrintRwdCorrect                   ==   Ver los rates              
 echo    ==   /kick pj                           ==   Botar un pj del juego      ==
 echo    ==   /summon id cantidad                ==   Invocar mobs               ==
 echo    ==   /KillMonsterAll                    ==   Matar todos los mob        ==
+echo    ==   /movePC pj                         ==   Te lleva hasta un pj       ==
 echo    ==   /mvzone id                         ==   Usar un portal             ==
+echo    ==   /moveother zona coordenadas        ==   Cambiar de zona            ==
 echo    ==   /DropItm id                        ==   "Invocar" un item          ==
+echo    ==   /Quiz pj idQuiz                    ==   Manda un Quiz a un pj      ==
 echo    ==                                                                      ==
 echo    ==========================================================================
 @echo.

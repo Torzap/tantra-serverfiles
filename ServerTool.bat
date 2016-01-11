@@ -647,6 +647,8 @@ echo Rate de items
 set /p sritem=  ?: 
 echo Rate de puntos dios
 set /p srmp=  ?: 
+echo Rate de items raros
+set /p srritem=  ?: 
 echo Minimo nivel requerido
 set /p sminlvl=  ?: 
 echo Version del cliente
@@ -667,9 +669,10 @@ echo AttackSpeedHack = 1000 >>Zone%map%/Data/Settings.ini
 @echo.  >>Zone%map%/Data/Settings.ini
 echo [Correct] >>Zone%map%/Data/Settings.ini
 echo RwdPrana = %srexp% >>Zone%map%/Data/Settings.ini
-echo RwdItem = %sritem% >>Zone%map%/Data/Settings.ini
 echo RwdGold = %srgold% >>Zone%map%/Data/Settings.ini
 echo RwdBraman = %srmp% >>Zone%map%/Data/Settings.ini
+echo RwdItem = %srritem% >>Zone%map%/Data/Settings.ini
+echo RwdRateForNormalItem = %sritem% >>Zone%map%/Data/Settings.ini
 @echo.  >>Zone%map%/Data/Settings.ini
 echo [VisualRange] >>Zone%map%/Data/Settings.ini
 echo HalfGrid = 48 >>Zone%map%/Data/Settings.ini

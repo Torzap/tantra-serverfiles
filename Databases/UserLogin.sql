@@ -77,7 +77,7 @@ AS
 		INSERT INTO CloseBeta SELECT ID, Email, UserID, Password, UserKey, SecretCode FROM Account WHERE Activated = 1 AND CloseBeta = 1;
 		UPDATE Account SET CloseBeta = 0 WHERE Activated = 1;
 	END
-GO;
+GO
 
 /*  
 	DELETE TRIGGER AND DB:

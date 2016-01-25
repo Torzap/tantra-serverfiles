@@ -120,6 +120,26 @@ CREATE TRIGGER UpdateRank
 AS
 	BEGIN
 		DELETE FROM GameInfo00
-		INSERT INTO GameInfo00 SELECT UserID,CharacterName,CharacterLevel,BrahmanPoint,MBrahmanPoint,Tribe,Trimurity,GuildName,GuildID,GuildRank,curtime,Name1,Name2,Name3,Level1,Level2,Level3,TotalMoney FROM TantraBackup00	
+		INSERT INTO GameInfo00 
+		SELECT 
+			UserID,
+			CharacterName,
+			CharacterLevel,
+			BrahmanPoint,
+			MBrahmanPoint,
+			Tribe,
+			Trimurity,
+			GuildName,
+			GuildID,
+			GuildRank,
+			curtime,
+			Name1,
+			Name2,
+			Name3,
+			Level1,
+			Level2,
+			Level3,
+			TotalMoney
+		FROM TantraBackup00	
 	END
 GO

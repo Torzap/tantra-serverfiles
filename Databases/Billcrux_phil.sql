@@ -54,7 +54,7 @@ AS
 			cashBalance = 0
 		FROM UserLogin.dbo.Account
 	END
-GO;
+GO
 
 /*  
 	DELETE TRIGGER:

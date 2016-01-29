@@ -57,6 +57,14 @@ CREATE TABLE Account (
 	PRIMARY KEY(ID,UserID)
 );
 
+CREATE TABLE Referred (
+	ID int IDENTITY(1,1) NOT NULL,
+	Referrer int NOT NULL,
+	Referred int NOT NULL,
+	
+	PRIMARY KEY(ID)
+);
+
 CREATE TABLE CloseBeta (
 	ID int NOT NULL,
 	Email varchar(50) NOT NULL,
@@ -80,7 +88,7 @@ AS
 GO
 
 /*  
-	DELETE TRIGGER AND DB:
+	DELETE TRIGGER AND TABLE:
 
 DROP TRIGGER BetaAccount;
 DROP TABLE CloseBeta;

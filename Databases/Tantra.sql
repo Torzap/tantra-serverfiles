@@ -10,7 +10,7 @@ CREATE TABLE GMInfo(
 	GMID char(20) NOT NULL,
 	GMPassword char(20) NOT NULL,
 	GMName char(20) NOT NULL,
-	GMLevel smallint NOT NULL,
+	GMLevel int NOT NULL,
 	GMPart char(30) NOT NULL,
 	
 	PRIMARY KEY(GMID)
@@ -28,9 +28,9 @@ CREATE TABLE GMLog(
 CREATE TABLE TantraItem(
 	ID int IDENTITY(1,1) NOT NULL,
 	World int NOT NULL,
-	Account varchar(50) NOT NULL,
-	ItemIndex int NOT NULL,
-	ItemCount bigint NOT NULL,
+	Account varchar(20) NOT NULL,
+	ItemIndex bigint NOT NULL,
+	ItemCount int NOT NULL,
 	
 	PRIMARY KEY(ID)
 );
@@ -38,9 +38,9 @@ CREATE TABLE TantraItem(
 CREATE TABLE TantraItem_historico(
 	ID int IDENTITY(1,1) NOT NULL,
 	Mundo int NULL,
-	Account varchar(50) NULL,
+	Account varchar(20) NULL,
 	ItemIndex bigint NULL,
-	ItemCount nchar(10) NULL,
+	ItemCount int NULL,
 	Fecha datetime NULL,
 	
 	PRIMARY KEY(ID)
@@ -58,7 +58,7 @@ GO
 
 CREATE TABLE TantraMail(
 	ID int IDENTITY(1,1) NOT NULL,
-	Account varchar(25) NOT NULL,
+	Account varchar(20) NOT NULL,
 	Content varchar(256) NOT NULL,
 	
 	PRIMARY KEY(ID)
@@ -66,8 +66,8 @@ CREATE TABLE TantraMail(
 
 CREATE TABLE TantraBackup00(
 	idx int IDENTITY(1,1) NOT NULL,
-	UserID varchar(40) NOT NULL,
-	CharacterName varchar(40) NOT NULL,
+	UserID varchar(20) NOT NULL,
+	CharacterName varchar(20) NOT NULL,
 	CharacterLevel smallint NOT NULL,
 	BrahmanPoint int NULL,
 	MBrahmanPoint int NULL,
@@ -77,9 +77,9 @@ CREATE TABLE TantraBackup00(
 	GuildID int NULL,
 	GuildRank smallint NOT NULL,
 	curtime datetime NOT NULL,
-	Name1 varchar(40) NULL,
-	Name2 varchar(40) NULL,
-	Name3 varchar(40) NULL,
+	Name1 varchar(20) NULL,
+	Name2 varchar(20) NULL,
+	Name3 varchar(20) NULL,
 	Level1 smallint NOT NULL,
 	Level2 smallint NOT NULL,
 	Level3 smallint NOT NULL,
@@ -91,8 +91,8 @@ CREATE TABLE TantraBackup00(
 );
 
 CREATE TABLE GameInfo00(
-	UserID varchar(40) NOT NULL,
-	CharacterName varchar(40) NOT NULL,
+	UserID varchar(20) NOT NULL,
+	CharacterName varchar(20) NOT NULL,
 	CharacterLevel smallint NOT NULL,
 	BrahmanPoint int NOT NULL,
 	MBrahmanPoint int NOT NULL,
@@ -102,9 +102,9 @@ CREATE TABLE GameInfo00(
 	GuildID int NULL,
 	GuildRank smallint NOT NULL,
 	curtime datetime NOT NULL,
-	Name1 varchar(40) NULL,
-	Name2 varchar(40) NULL,
-	Name3 varchar(40) NULL,
+	Name1 varchar(20) NULL,
+	Name2 varchar(20) NULL,
+	Name3 varchar(20) NULL,
 	Level1 smallint NOT NULL,
 	Level2 smallint NOT NULL,
 	Level3 smallint NOT NULL,
@@ -120,26 +120,6 @@ CREATE TRIGGER UpdateRank
 AS
 	BEGIN
 		DELETE FROM GameInfo00
-		INSERT INTO GameInfo00 
-		SELECT 
-			UserID,
-			CharacterName,
-			CharacterLevel,
-			BrahmanPoint,
-			MBrahmanPoint,
-			Tribe,
-			Trimurity,
-			GuildName,
-			GuildID,
-			GuildRank,
-			curtime,
-			Name1,
-			Name2,
-			Name3,
-			Level1,
-			Level2,
-			Level3,
-			TotalMoney
-		FROM TantraBackup00	
+		INSERT INTO GameInfo00 SELECT UserID,CharacterName,CharacterLevel,BrahmanPoint,MBrahmanPoint,Tribe,Trimurity,GuildName,GuildID,GuildRank,curtime,Name1,Name2,Name3,Level1,Level2,Level3,TotalMoney FROM TantraBackup00	
 	END
 GO

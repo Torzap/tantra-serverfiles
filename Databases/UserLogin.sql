@@ -70,8 +70,6 @@ CREATE TABLE CloseBeta (
 	Email varchar(50) NOT NULL,
 	UserID varchar(50) NOT NULL,
 	Password varchar(70) NOT NULL,
-	UserKey varchar(7) NOT NULL,
-	SecretCode varchar(7) NULL,
 	
 	PRIMARY KEY(ID,UserID)
 );
@@ -82,7 +80,13 @@ CREATE TRIGGER BetaAccount
 	AFTER INSERT
 AS
 	BEGIN
-		INSERT INTO CloseBeta SELECT ID, Email, UserID, Password, UserKey, SecretCode FROM Account WHERE Activated = 1 AND CloseBeta = 1;
+		INSERT INTO	CloseBeta
+		SELECT
+			ID,
+			Email,
+			UserID,
+			Password
+		FROM Account WHERE Activated = 1 AND CloseBeta = 1;
 		UPDATE Account SET CloseBeta = 0 WHERE Activated = 1;
 	END
 GO

@@ -6,7 +6,7 @@
 
 USE Billcrux_phil;
 
-CREATE TABLE dbo.tblUserInfo(
+CREATE TABLE tblUserInfo(
 	userNumber int NOT NULL,
 	userId nvarchar(52) NOT NULL,
 	userPwd nvarchar(70) NULL,
@@ -43,7 +43,7 @@ CREATE TABLE dbo.tblUserInfo(
 
 GO
 CREATE TRIGGER AccountCash
-	ON Billcrux_phil
+	ON tblUserInfo
 	AFTER INSERT
 AS
 	BEGIN

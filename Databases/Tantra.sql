@@ -1,11 +1,4 @@
-/* 
-
-	Tantra DB Query by Amir Torrez -> amirtorrez@openmailbox.org 
-
-*/
-
 USE Tantra;
-
 CREATE TABLE GMInfo(
 	GMID char(20) NOT NULL,
 	GMPassword char(20) NOT NULL,
@@ -26,41 +19,19 @@ CREATE TABLE GMLog(
 );
 
 CREATE TABLE TantraItem(
-	ID int IDENTITY(1,1) NOT NULL,
 	World int NOT NULL,
 	Account varchar(20) NOT NULL,
 	ItemIndex bigint NOT NULL,
-	ItemCount int NOT NULL,
-	
-	PRIMARY KEY(ID)
+	ItemCount int NOT NULL
 );
 
 CREATE TABLE TantraItem_historico(
-	ID int IDENTITY(1,1) NOT NULL,
 	Mundo int NULL,
 	Account varchar(20) NULL,
 	ItemIndex bigint NULL,
 	ItemCount int NULL,
-	Fecha datetime NULL,
-	
-	PRIMARY KEY(ID)
+	Fecha datetime NULL
 );
-
-GO
-CREATE TRIGGER TantraItem_historico_data
-	ON TantraBackup00
-	AFTER INSERT
-AS
-	BEGIN
-		INSERT INTO TantraItem_historico
-		SELECT
-			World,
-			Account,
-			ItemIndex,
-			ItemCount
-		FROM TantraItem
-	END
-GO
 
 CREATE TABLE TantraMail(
 	ID int IDENTITY(1,1) NOT NULL,
@@ -121,12 +92,32 @@ CREATE TABLE GameInfo00(
 
 GO
 CREATE TRIGGER UpdateRank
-	ON TantraBackup00
-	AFTER INSERT,UPDATE,DELETE
+    ON TantraBackup00
+    AFTER INSERT,UPDATE,DELETE
 AS
-	BEGIN
-		DELETE FROM GameInfo00
-        SELECT 
+    BEGIN
+        DELETE FROM GameInfo00
+        INSERT INTO GameInfo00 (
+            UserID,
+            CharacterName,
+            CharacterLevel,
+            BrahmanPoint,
+            MBrahmanPoint,
+            Tribe,
+            Trimurity,
+            GuildName,
+            GuildID,
+            GuildRank,
+            curtime,
+            Name1,
+            Name2,
+            Name3,
+            Level1,
+            Level2,
+            Level3,
+            TotalMoney
+       )
+       SELECT
             UserID,
             CharacterName,
             CharacterLevel,
@@ -146,5 +137,5 @@ AS
             Level3,
             TotalMoney
         FROM TantraBackup00
-	END
+    END
 GO

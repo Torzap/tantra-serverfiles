@@ -562,7 +562,7 @@ echo %ip% 1000 >>DBSRV/LocalIP.txt
 echo %ip% 5001 >>MSGSRV/LocalIP.txt
 echo 0 %ip%  >>Resources/itemserver.txt
 for /L %%i in (1,1,50) do ( if exist Zone%%i copy Resources\itemserver.txt  Zone%%i\itemserver.txt  /Y )
-echo %ip% 7514  >>DBSRV/Admin.txt
+echo 0 %ip%  >>DBSRV/Admin.txt
 echo $DBServer >>GMTOOL/Serverlist.txt
 echo %ip%, Tantra Online >>GMTOOL/Serverlist.txt
 echo $TSMonSvc  >>GMTOOL/Serverlist.txt
